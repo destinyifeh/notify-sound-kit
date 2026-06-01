@@ -1,0 +1,108 @@
+{
+  "name": "notify-sound-kit",
+  "version": "1.0.0",
+  "description": "A cross-platform notification + sound system for React (Web), React Native (Bare), and Expo. Toast, Alert, Modal with built-in sound effects, volume control, and fully customizable themes.",
+  "keywords": [
+    "notifications",
+    "toast",
+    "alert",
+    "modal",
+    "sound",
+    "react",
+    "react-native",
+    "expo",
+    "notification sound",
+    "headless",
+    "cross-platform"
+  ],
+  "author": "Destiny Ifehor <destinyifehor@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/destinyifeh/notify-sound-kit.git"
+  },
+  "homepage": "https://github.com/destinyifeh/notify-sound-kit#readme",
+  "bugs": {
+    "url": "https://github.com/destinyifeh/notify-sound-kit/issues"
+  },
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/core.cjs",
+  "module": "./dist/core.js",
+  "types": "./dist/core.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/core.d.ts",
+        "default": "./dist/core.js"
+      },
+      "require": {
+        "types": "./dist/core.d.cts",
+        "default": "./dist/core.cjs"
+      }
+    },
+    "./react": {
+      "import": {
+        "types": "./dist/react.d.ts",
+        "default": "./dist/react.js"
+      },
+      "require": {
+        "types": "./dist/react.d.cts",
+        "default": "./dist/react.cjs"
+      }
+    },
+    "./react-native": {
+      "import": {
+        "types": "./dist/react-native.d.ts",
+        "default": "./dist/react-native.js"
+      },
+      "require": {
+        "types": "./dist/react-native.d.cts",
+        "default": "./dist/react-native.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "src/sounds",
+    "react.js",
+    "react.d.ts",
+    "react-native.js",
+    "react-native.d.ts",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": ">=17.0.0",
+    "react-native": ">=0.64.0",
+    "expo-av": ">=13.0.0",
+    "react-native-sound": ">=0.11.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-native": {
+      "optional": true
+    },
+    "expo-av": {
+      "optional": true
+    },
+    "react-native-sound": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-native": "^0.73.0",
+    "react": "^19.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.7.0",
+    "vitest": "^4.0.0"
+  },
+  "sideEffects": false
+}
