@@ -1,6 +1,6 @@
 {
   "name": "notify-sound-kit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A cross-platform notification + sound system for React (Web), React Native (Bare), and Expo. Toast, Alert, Modal with built-in sound effects, volume control, and fully customizable themes.",
   "keywords": [
     "notifications",
@@ -25,39 +25,38 @@
     "url": "https://github.com/destinyifeh/notify-sound-kit/issues"
   },
   "license": "MIT",
-  "type": "module",
-  "main": "./dist/core.cjs",
-  "module": "./dist/core.js",
+  "main": "./dist/core.js",
+  "module": "./dist/core.mjs",
   "types": "./dist/core.d.ts",
   "exports": {
     ".": {
       "import": {
         "types": "./dist/core.d.ts",
-        "default": "./dist/core.js"
+        "default": "./dist/core.mjs"
       },
       "require": {
-        "types": "./dist/core.d.cts",
-        "default": "./dist/core.cjs"
+        "types": "./dist/core.d.ts",
+        "default": "./dist/core.js"
       }
     },
     "./react": {
       "import": {
         "types": "./dist/react.d.ts",
-        "default": "./dist/react.js"
+        "default": "./dist/react.mjs"
       },
       "require": {
-        "types": "./dist/react.d.cts",
-        "default": "./dist/react.cjs"
+        "types": "./dist/react.d.ts",
+        "default": "./dist/react.js"
       }
     },
     "./react-native": {
       "import": {
         "types": "./dist/react-native.d.ts",
-        "default": "./dist/react-native.js"
+        "default": "./dist/react-native.mjs"
       },
       "require": {
-        "types": "./dist/react-native.d.cts",
-        "default": "./dist/react-native.cjs"
+        "types": "./dist/react-native.d.ts",
+        "default": "./dist/react-native.js"
       }
     }
   },

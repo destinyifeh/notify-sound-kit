@@ -1,1 +1,1 @@
-module.exports = require('./dist/react-native.cjs');
+module.exports = require('./dist/react-native.js');

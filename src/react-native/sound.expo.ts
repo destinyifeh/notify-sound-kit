@@ -16,7 +16,8 @@ export const expoSoundEngine: SoundEngine = {
     this.stop();
 
     try {
-      const { Audio } = require("expo-av");
+      const expoAV = "expo-av";
+      const { Audio } = require(expoAV);
       await Audio.setAudioModeAsync({
         allowsRecordingIOS: false,
         playsInSilentModeIOS: true,

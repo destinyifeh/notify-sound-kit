@@ -16,7 +16,8 @@ export const bareSoundEngine: SoundEngine = {
     this.stop();
 
     try {
-      const Sound = require("react-native-sound");
+      const rns = "react-native-sound";
+      const Sound = require(rns);
       Sound.setCategory("Playback");
 
       return new Promise((resolve, reject) => {

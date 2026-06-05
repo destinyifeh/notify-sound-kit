@@ -6,12 +6,14 @@ import { registerSound } from "../core/soundRegistry.js";
 // Auto-detect: Expo or Bare RN
 function autoDetectSoundEngine() {
   try {
-    require("expo-av");
+    const expoAV = "expo-av";
+    require(expoAV);
     const { expoSoundEngine } = require("./sound.expo.js");
     setSoundEngine(expoSoundEngine);
   } catch {
     try {
-      require("react-native-sound");
+      const rns = "react-native-sound";
+      require(rns);
       const { bareSoundEngine } = require("./sound.bare.js");
       setSoundEngine(bareSoundEngine);
     } catch {
