@@ -18,15 +18,6 @@ export function requireOptional<T>(moduleId: string, loader: () => T): T | null 
   }
 }
 
-export function tryRequireDefault<T>(moduleId: string, loader: () => { default: T } | T): T | null {
-  const mod = tryRequire(moduleId, loader);
-  if (!mod) {
-    return null;
-  }
-
-  return (mod as { default?: T }).default ?? (mod as T);
-}
-
 function isModuleNotFoundError(error: unknown, moduleId: string): boolean {
   if (!error || typeof error !== "object") {
     return false;

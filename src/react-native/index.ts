@@ -8,7 +8,6 @@ export {
   resetConfig,
   registerSound,
   setSoundEngine,
-  autoDetectSoundEngine,
 } from "./notify.js";
 export { useNotify } from "./useNotify.js";
 export { NotifyRenderer } from "./renderer.js";

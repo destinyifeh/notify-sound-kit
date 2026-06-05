@@ -16,38 +16,33 @@ export const bareSoundEngine: SoundEngine = {
     // Stop any currently playing sound
     this.stop();
 
-    const Sound = requireOptional("react-native-sound", () => require("react-native-sound"));
-    if (!Sound) {
+    const SoundModule = requireOptional("react-native-sound", () => require("react-native-sound"));
+    if (!SoundModule) {
       return;
     }
 
-    try {
-      const SoundModule = typeof Sound === "object" && Sound !== null && "default" in Sound ? (Sound as any).default : Sound;
-      if (typeof SoundModule?.setCategory === "function") {
-        SoundModule.setCategory("Playback");
-      }
+    const SoundClass = typeof SoundModule === "object" && SoundModule !== null && "default" in SoundModule ? SoundModule.default : SoundModule;
+    if (typeof SoundClass?.setCategory === "function") {
+      SoundClass.setCategory("Playback");
+    }
 
-      return new Promise((resolve, reject) => {
-        // For built-in sounds, load from the package's sounds directory
-        const s = new SoundModule(key, SoundModule.MAIN_BUNDLE, (error: any) => {
-          if (error) {
-            // Silently fail — sound is optional
-            resolve();
-            return;
-          }
-          currentSound = s;
-          s.setVolume(vol);
-          s.play((success: boolean) => {
-            currentSound = null;
-            s.release();
-            resolve();
-          });
+    return new Promise((resolve, reject) => {
+      // For built-in sounds, load from the package's sounds directory
+      const s = new SoundClass(key, SoundClass.MAIN_BUNDLE, (error: any) => {
+        if (error) {
+          // Silently fail — sound is optional
+          resolve();
+          return;
+        }
+        currentSound = s;
+        s.setVolume(vol);
+        s.play((success: boolean) => {
+          currentSound = null;
+          s.release();
+          resolve();
         });
       });
-    } catch {
-      // react-native-sound failed — silently skip
-      return;
-    }
+    });
   },
 
   stop(): void {
