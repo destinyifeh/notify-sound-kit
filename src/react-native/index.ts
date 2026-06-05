@@ -1,4 +1,15 @@
-export { notify, dismiss, dismissAll, setConfig, setTheme, getConfig, resetConfig, registerSound, setSoundEngine, bareSoundEngine, expoSoundEngine } from "./notify.js";
+export {
+  notify,
+  dismiss,
+  dismissAll,
+  setConfig,
+  setTheme,
+  getConfig,
+  resetConfig,
+  registerSound,
+  setSoundEngine,
+  autoDetectSoundEngine,
+} from "./notify.js";
 export { useNotify } from "./useNotify.js";
 export { NotifyRenderer } from "./renderer.js";
 export { setRenderer } from "../core/manager.js";

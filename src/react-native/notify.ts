@@ -2,22 +2,32 @@ import type { NotifyPayload } from "../core/types.js";
 import { show, dismiss, dismissAll, setSoundEngine } from "../core/manager.js";
 import { setConfig, setTheme, getConfig, resetConfig } from "../core/config.js";
 import { registerSound } from "../core/soundRegistry.js";
+import { tryRequire } from "../core/env.js";
 
-// Auto-detect: Expo or Bare RN
-function autoDetectSoundEngine() {
-  try {
-    const expoAV = "expo-av";
-    require(expoAV);
-    const { expoSoundEngine } = require("./sound.expo.js");
-    setSoundEngine(expoSoundEngine);
-  } catch {
-    try {
-      const rns = "react-native-sound";
-      require(rns);
-      const { bareSoundEngine } = require("./sound.bare.js");
-      setSoundEngine(bareSoundEngine);
-    } catch {
-      // No sound library available — sound will be silently skipped
+function loadBareSoundEngine() {
+  return tryRequire<{ bareSoundEngine: any }>("./sound.bare.js")?.bareSoundEngine ?? null;
+}
+
+function loadExpoSoundEngine() {
+  return tryRequire<{ expoSoundEngine: any }>("./sound.expo.js")?.expoSoundEngine ?? null;
+}
+
+export function autoDetectSoundEngine(): void {
+  const expoModule = tryRequire("expo-av");
+  if (expoModule) {
+    const expoEngine = loadExpoSoundEngine();
+    if (expoEngine) {
+      setSoundEngine(expoEngine);
+      return;
+    }
+  }
+
+  const bareModule = tryRequire("react-native-sound");
+  if (bareModule) {
+    const bareEngine = loadBareSoundEngine();
+    if (bareEngine) {
+      setSoundEngine(bareEngine);
+      return;
     }
   }
 }
@@ -40,5 +50,3 @@ export function notify(payload: NotifyPayload): string {
 
 export { dismiss, dismissAll, setConfig, setTheme, getConfig, resetConfig, registerSound };
 export { setSoundEngine } from "../core/manager.js";
-export { bareSoundEngine } from "./sound.bare.js";
-export { expoSoundEngine } from "./sound.expo.js";
