@@ -1,13 +1,12 @@
 const moduleCache: Record<string, unknown | null> = {};
 
-export function tryRequire<T>(moduleId: string): T | null {
+export function requireOptional<T>(moduleId: string, loader: () => T): T | null {
   if (moduleId in moduleCache) {
     return moduleCache[moduleId] as T | null;
   }
 
   try {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const mod = require(moduleId) as T;
+    const mod = loader();
     moduleCache[moduleId] = mod;
     return mod;
   } catch (error) {
@@ -17,6 +16,15 @@ export function tryRequire<T>(moduleId: string): T | null {
     }
     throw error;
   }
+}
+
+export function tryRequireDefault<T>(moduleId: string, loader: () => { default: T } | T): T | null {
+  const mod = tryRequire(moduleId, loader);
+  if (!mod) {
+    return null;
+  }
+
+  return (mod as { default?: T }).default ?? (mod as T);
 }
 
 function isModuleNotFoundError(error: unknown, moduleId: string): boolean {

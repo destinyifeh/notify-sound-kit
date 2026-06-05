@@ -1,6 +1,6 @@
 import type { SoundEngine, SoundName } from "../core/types.js";
 import { getSoundKey, isBuiltInSound } from "../core/soundRegistry.js";
-import { tryRequire } from "../core/env.js";
+import { requireOptional } from "../core/env.js";
 
 // React Native bare sound engine using react-native-sound
 // Users must install react-native-sound as a peer dependency
@@ -16,13 +16,13 @@ export const bareSoundEngine: SoundEngine = {
     // Stop any currently playing sound
     this.stop();
 
-    const Sound = tryRequire<{ default?: any; Sound?: any; setCategory?: any }>("react-native-sound");
+    const Sound = requireOptional("react-native-sound", () => require("react-native-sound"));
     if (!Sound) {
       return;
     }
 
     try {
-      const SoundModule = "default" in Sound ? Sound.default : Sound;
+      const SoundModule = typeof Sound === "object" && Sound !== null && "default" in Sound ? (Sound as any).default : Sound;
       if (typeof SoundModule?.setCategory === "function") {
         SoundModule.setCategory("Playback");
       }

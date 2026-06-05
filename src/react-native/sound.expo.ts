@@ -1,6 +1,6 @@
 import type { SoundEngine, SoundName } from "../core/types.js";
 import { getSoundKey, isBuiltInSound } from "../core/soundRegistry.js";
-import { requireModule } from "../core/env.js";
+import { requireOptional } from "../core/env.js";
 
 // Expo sound engine using expo-av
 // Users must install expo-av as a peer dependency
@@ -16,7 +16,7 @@ export const expoSoundEngine: SoundEngine = {
     // Stop any currently playing sound
     this.stop();
 
-    const expoAV = requireModule<any>("expo-av");
+    const expoAV = requireOptional("expo-av", () => require("expo-av"));
     if (!expoAV) {
       return;
     }
